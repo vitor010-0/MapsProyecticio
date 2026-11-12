@@ -72,7 +72,11 @@ public class HelouScreen extends javax.swing.JFrame {
 
     private void btnComenzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComenzarActionPerformed
         Maps mp = new Maps();
+        Menu mn = new Menu();
+        mn.setAlwaysOnTop(true);
         mp.setVisible(true);
+        mn.setLocation(mp.getX() + mp.getWidth(), mp.getY());
+        mn.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnComenzarActionPerformed
 

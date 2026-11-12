@@ -1,6 +1,11 @@
 
+import java.awt.event.ActionEvent;
+import java.awt.event.InputEvent;
 import java.util.ArrayList;
+import javax.swing.AbstractAction;
+import javax.swing.ActionMap;
 import javax.swing.JFrame;
+import javax.swing.KeyStroke;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -13,6 +18,8 @@ import javax.swing.JFrame;
 public class Maps extends JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Maps.class.getName());
+    private static Place from = null;
+    private static Place to = null;
 
     /**
      * Creates new form Maps
@@ -31,7 +38,7 @@ public class Maps extends JFrame {
         for (Linea line : getLines()) bg.add(line);
         
         setContentPane(bg);
-
+        setupKeys();
     }
 
     /**
@@ -86,22 +93,44 @@ public class Maps extends JFrame {
     
     private ArrayList<PrettyButton> getButtons(){
         ArrayList<PrettyButton> list = new ArrayList<>();
-        PrettyButton biblioteca = new PrettyButton("Biblioteca");
-        for (Library.Place p : Library.Place.values()){
-            PrettyButton  pb = new PrettyButton(p.name);
+        for (Place p : Place.values()){
+            PrettyButton  pb = new PrettyButton(p);
             pb.setBounds(p.x, p.y , 15, 15);
+            pb.setToolTipText(p.name);
+            pb.addActionListener(e -> {
+                if (from == null)
+                    from = pb.place;
+                else
+                    to = pb.place;
+            });
             list.add(pb);
         }
         return list;
     }
     
     private ArrayList<Linea> getLines(){
-        ArrayList<Linea> lines = Library.getLines();
+        ArrayList<Linea> lines = Library.lines;
         
         for (Linea line : lines){
             line.setBounds(0, 0, getWidth(), getHeight());
         }
         return lines;
+    }
+    
+    private void setupKeys(){
+        KeyStroke comb = KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, InputEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK);
+        javax.swing.InputMap map = getRootPane().getInputMap(javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW);
+        ActionMap action = getRootPane().getActionMap();
+        map.put(comb, "restartScene");
+        action.put("restartScene", new AbstractAction(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                Maps newMap = new Maps();
+                newMap.setLocation(getLocation());
+                newMap.setVisible(true);
+                dispose();
+            }
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -3,13 +3,12 @@
 public class Main {
     
     public static void main(String[] args) {
-        crearMapaHardcodeado();
+        Library.fill(); //Dinamicamente
         HelouScreen hs = new HelouScreen();
         hs.setVisible(true);
-    }
-    
-    public static void crearMapaHardcodeado(){
+        System.out.println(Place.fondita.nearPlaces);
+        System.out.println(Place.fondita.lines);
         Grafo bee = new Grafo();
-        for (Library.Place place : Library.Place.values()) bee.agregarNodo(place.toString());
+        System.out.println(bee.mapeameLaExistencia(Place.bib, Place.park));
     }
 }

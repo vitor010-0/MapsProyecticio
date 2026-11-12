@@ -3,6 +3,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.RenderingHints;
 import javax.swing.JButton;
 
@@ -16,8 +17,8 @@ import javax.swing.JButton;
  * @author jacqu
  */
 public class PrettyButton extends JButton{
-    public String place;
-    public PrettyButton(String place){
+    public Place place;
+    public PrettyButton(Place place){
         super();
         this.place = place;
         setContentAreaFilled(false);
@@ -41,6 +42,11 @@ public class PrettyButton extends JButton{
     @Override
     public boolean contains(int x, int y){
         int radius = getWidth() / 2;
-        return Math.pow(x - radius, 2) + Math.pow(y - radius, 2) <= Math.pow(radius, 2);
+        return Math.pow(x - radius, 2) + Math.pow(y - radius, 2) <= Math.pow(radius, 2) + 5;
+    }
+    
+    @Override
+    public Point getToolTipLocation(java.awt.event.MouseEvent event){
+        return new Point(0, -30);
     }
 }

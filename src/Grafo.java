@@ -1,66 +1,49 @@
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.PriorityQueue;
 
 
 public class Grafo {
-    private Map<String, Lugar> nodos = new HashMap<>();
-    public void agregarNodo(String nombre){
-        nodos.put(nombre, new Lugar(nombre));
-    }
     
-    public void agregarRuta(String from, String to, double distancia){
-        Lugar origen = nodos.get(from);
-        Lugar destino = nodos.get(to);
-        if (origen != null && destino != null){
-            origen.addArista(new Arista(destino, distancia));
-            destino.addArista(new Arista(origen, distancia));
-        }
-    }
-    
-    public List<Lugar> mapeameLaExistencia(String from, String to){
-        Lugar origen = nodos.get(from);
-        Lugar destino = nodos.get(to);
-        if (origen == null || destino == null) return Collections.emptyList();
+    public static List<Place> mapeameLaExistencia(Place from, Place to){
+        if (from == null || to == null) return Collections.emptyList(); //Removible
         
-        for (Lugar nodo : nodos.values()){ //inicializar los cosos en limpio
-            nodo.setDistanciaMinima(Double.POSITIVE_INFINITY);
-            nodo.setPrevio(null);
+        for (Place place : Place.values()){ //inicializar los cosos en limpio
+            place.minDist = Double.POSITIVE_INFINITY;
+            place.previo = null;
         }
         
-        origen.setDistanciaMinima(0);
-        PriorityQueue<Lugar> cocacola = new PriorityQueue<>();
-        cocacola.add(origen);
-        List<Lugar> vistos = new ArrayList<>();
+        from.minDist = 0;
+        PriorityQueue<Place> cocacola = new PriorityQueue<>(java.util.Comparator.comparingDouble(p -> p.minDist));
+        cocacola.add(from);
+        List<Place> vistos = new ArrayList<>();
         while (!cocacola.isEmpty()){
-            Lugar actual = cocacola.poll();
-            if (actual.equals(destino)) break;
+            Place actual = cocacola.poll();
+            if (actual.equals(to)) break;
             if (vistos.contains(actual)) continue;
             vistos.add(actual);
-            for (Arista arista : actual.getCercanos()){
-                Lugar cercano = arista.getDestino();
-                if (!vistos.contains(cercano));
-                double otraDistancia = actual.getDistanciaMinima() + arista.getDistancia();
-                if (otraDistancia < cercano.getDistanciaMinima()){
-                    cercano.setDistanciaMinima(otraDistancia);
-                    cercano.setPrevio(actual);
+            for (Linea line : actual.lines){
+                Place cercano = line.from.equals(actual) ? line.to : line.from;
+                if (vistos.contains(cercano)) continue;
+                double otraDistancia = actual.minDist + line.length;
+                if (otraDistancia < cercano.minDist){
+                    cercano.minDist = otraDistancia;
+                    cercano.previo = actual;
                     cocacola.add(cercano);
                 }
             }
         }
         
-        List<Lugar> ruta = new ArrayList<>();
-        Lugar aux = destino;
+        List<Place> ruta = new ArrayList<>();
+        Place aux = to;
         while (aux != null){
             ruta.add(aux);
-            aux = aux.getPrevio();
+            aux = aux.previo;
         }
         Collections.reverse(ruta);
-        if (ruta.isEmpty() || !ruta.get(0).equals(origen)) return Collections.emptyList();
+        if (ruta.isEmpty() || !ruta.get(0).equals(from)) return Collections.emptyList();
         return ruta;
     }
 }

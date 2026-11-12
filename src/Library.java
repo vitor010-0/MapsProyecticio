@@ -10,29 +10,44 @@ import java.util.ArrayList;
  * @author jacqu
  */
 public class Library {
-
-    public static ArrayList<String> places = new ArrayList<>();
-    public static ArrayList<int[]> btnCoords = new ArrayList<>();
-
-    public static void fill() {
-        places.add("Biblioteca"); btnCoords.add(new int[]{306, 215});
-        places.add("Cafeteria"); btnCoords.add(new int[]{285, 420});
-        places.add("Direccion"); btnCoords.add(new int[]{184, 251});
-        places.add("Edificio A"); btnCoords.add(new int[]{320, 310});
-        places.add("Edificio B"); btnCoords.add(new int[]{424, 343});
-        places.add("Edificio E"); btnCoords.add(new int[]{254, 375});
-        places.add("Edificio de Vinculacion"); btnCoords.add(new int[]{209, 268});
-        places.add("Palapas"); btnCoords.add(new int[]{286, 268});
-        places.add("Edificio de TICS"); btnCoords.add(new int[]{369, 403});
-        places.add("Cancha de Futbol"); btnCoords.add(new int[]{530, 422});
-        places.add("Canchas de basketball"); btnCoords.add(new int[]{172, 403});
-        places.add("Estacionamiento"); btnCoords.add(new int[]{506, 276});
-        places.add("Auditorio de vinculacion"); btnCoords.add(new int[]{166, 237});
-        places.add("Auditorio principal"); btnCoords.add(new int[]{142, 368});
-        places.add("Caseta de vigilancia del estacionamiento"); btnCoords.add(new int[]{497, 237});
-        places.add("Caseta de vigilancia de la puerta principal"); btnCoords.add(new int[]{378, 205});
-        places.add("Cocinas de Gastronomia"); btnCoords.add(new int[]{171, 263});
-        places.add("Cabaña de Gastronomia"); btnCoords.add(new int[]{148, 293});
-        places.add("Fondita"); btnCoords.add(new int[]{457, 141});
+    public static enum Place{
+        bib("Biblioteca", 306, 215),
+        cafe("Cafeteria", 285, 420),
+        direc("Direccion", 184, 251),
+        a("Edificio A", 320, 310),
+        b("Edificio B", 424, 343),
+        e("Edificio E", 254, 375),
+        vinc("Edificio de Vinculacion", 209, 268),
+        palaponchas("Palapas", 286, 268),
+        tics("Edificio de TICS", 369, 403),
+        fucho("Cancha de Futbol", 530, 422),
+        basket("Canchas de Basketball", 172, 403),
+        park("Estacionamiento", 506, 276),
+        audVinc("Auditorio de vinculacion", 166, 237),
+        audMain("Auditorio principal", 142, 368),
+        vigPark("Caseta de vigilancia del estacionamiento", 497, 237),
+        vigMain("Caseta de vigilancia de la puerta principal", 378, 205),
+        gastroKitchen("Cocinas de Gastronomia", 171, 263),
+        gastroRelajadera("Cabaña de Gastronomia", 148, 293),
+        fondita("Fondita", 457, 141);
+        
+        
+        public final String name;
+        public final int x;
+        public final int y;
+        Place(String name, int x, int y){
+            this.name = name;
+            this.x = x;
+            this.y = y;
+        }
+        @Override
+        public String toString(){ return this.name; }
+    }
+    
+    public static ArrayList<Linea> getLines(){
+        ArrayList<Linea> list = new ArrayList<>();
+        list.add(new Linea(Place.fondita, Place.vigMain, 0));
+        
+        return list;
     }
 }

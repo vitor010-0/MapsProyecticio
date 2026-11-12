@@ -27,9 +27,9 @@ public class Maps extends JFrame {
         BackgroundImage bg = new BackgroundImage("imgMaps.jpeg");
         bg.setLayout(null);
         
-        for (PrettyButton pb : getButtons()){
-            bg.add(pb);
-        }
+        for (PrettyButton pb : getButtons()) bg.add(pb);
+        for (Linea line : getLines()) bg.add(line);
+        
         setContentPane(bg);
 
     }
@@ -84,16 +84,24 @@ public class Maps extends JFrame {
         java.awt.EventQueue.invokeLater(() -> new Maps().setVisible(true));
     }
     
-    private static ArrayList<PrettyButton> getButtons(){
+    private ArrayList<PrettyButton> getButtons(){
         ArrayList<PrettyButton> list = new ArrayList<>();
         PrettyButton biblioteca = new PrettyButton("Biblioteca");
-        for (int i = 0; i < Library.places.size(); i++){
-            PrettyButton  pb = new PrettyButton(Library.places.get(i));
-            int[] coords = Library.btnCoords.get(i);
-            pb.setBounds(coords[0], coords[1] , 10, 10);
+        for (Library.Place p : Library.Place.values()){
+            PrettyButton  pb = new PrettyButton(p.name);
+            pb.setBounds(p.x, p.y , 15, 15);
             list.add(pb);
         }
         return list;
+    }
+    
+    private ArrayList<Linea> getLines(){
+        ArrayList<Linea> lines = Library.getLines();
+        
+        for (Linea line : lines){
+            line.setBounds(0, 0, getWidth(), getHeight());
+        }
+        return lines;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -3,7 +3,6 @@
 public class Main {
     
     public static void main(String[] args) {
-        Library.fill();
         crearMapaHardcodeado();
         HelouScreen hs = new HelouScreen();
         hs.setVisible(true);
@@ -11,6 +10,6 @@ public class Main {
     
     public static void crearMapaHardcodeado(){
         Grafo bee = new Grafo();
-        for (String place : Library.places) bee.agregarNodo(place);
+        for (Library.Place place : Library.Place.values()) bee.agregarNodo(place.toString());
     }
 }

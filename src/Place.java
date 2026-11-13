@@ -38,6 +38,7 @@ public enum Place {
         public Set<Place> nearPlaces;
         public Set<Linea> lines;
         public double minDist = Double.POSITIVE_INFINITY;
+        public boolean marked = false;
 
         Place(String name, int x, int y) {
             this.name = name;

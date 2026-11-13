@@ -7,7 +7,37 @@
  *
  * @author jacqu
  */
+import java.awt.*;
+import javax.swing.*;
 public class HelouScreen extends javax.swing.JFrame {
+    
+private class FondoDegradado extends JPanel {
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        Graphics2D g2 = (Graphics2D) g.create();
+
+        g2.setRenderingHint(
+            RenderingHints.KEY_RENDERING,
+            RenderingHints.VALUE_RENDER_QUALITY
+        );
+
+        GradientPaint degradado = new GradientPaint(
+            0, 0,
+            new Color(15, 35, 65),
+            getWidth(), getHeight(),
+            new Color(35, 110, 170)
+        );
+
+        g2.setPaint(degradado);
+        g2.fillRect(0, 0, getWidth(), getHeight());
+
+        g2.dispose();
+    }
+}
+
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(HelouScreen.class.getName());
 
@@ -15,10 +45,38 @@ public class HelouScreen extends javax.swing.JFrame {
      * Creates new form HelouScreen
      */
     public HelouScreen() {
-        initComponents();
-        btnComenzar.requestFocusInWindow();
-        getRootPane().setDefaultButton(btnComenzar);
-    }
+    initComponents();
+    setSize(600, 400);
+    setLocationRelativeTo(null);
+    setResizable(false);
+
+    FondoDegradado fondo = new FondoDegradado();
+    fondo.setLayout(null);
+
+    lblWelcomen.setBounds(50, 85, 500, 55);
+    lblWelcomen.setHorizontalAlignment(SwingConstants.CENTER);
+    lblWelcomen.setForeground(Color.WHITE);
+    lblWelcomen.setOpaque(false);
+
+    lblDescripcion.setBounds(30, 150, 540, 35);
+    lblDescripcion.setHorizontalAlignment(SwingConstants.CENTER);
+    lblDescripcion.setForeground(new Color(220, 235, 250));
+    lblDescripcion.setOpaque(false);
+
+    btnComenzar.setBounds(190, 230, 220, 55);
+    btnComenzar.setBackground(new Color(30, 130, 210));
+    btnComenzar.setForeground(Color.WHITE);
+    btnComenzar.setFocusPainted(false);
+
+    fondo.add(lblWelcomen);
+    fondo.add(lblDescripcion);
+    fondo.add(btnComenzar);
+
+    setContentPane(fondo);
+    
+    btnComenzar.requestFocusInWindow();
+    getRootPane().setDefaultButton(btnComenzar);
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -29,20 +87,34 @@ public class HelouScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
         lblWelcomen = new javax.swing.JLabel();
         btnComenzar = new javax.swing.JButton();
+        lblDescripcion = new javax.swing.JLabel();
+
+        jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setForeground(java.awt.Color.green);
+        setTitle("MAPENEITOR 3500");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        lblWelcomen.setBackground(new java.awt.Color(102, 255, 102));
+        lblWelcomen.setBackground(new java.awt.Color(204, 255, 204));
         lblWelcomen.setFont(new java.awt.Font("Eras Bold ITC", 1, 36)); // NOI18N
-        lblWelcomen.setText("    Bienvenidisimo");
+        lblWelcomen.setForeground(new java.awt.Color(255, 255, 255));
+        lblWelcomen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblWelcomen.setText("    ¡Bienvenidisimo!");
 
-        btnComenzar.setBackground(new java.awt.Color(102, 255, 102));
+        btnComenzar.setBackground(new java.awt.Color(102, 153, 255));
+        btnComenzar.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        btnComenzar.setForeground(new java.awt.Color(255, 255, 255));
         btnComenzar.setText("Mostrar Mapa");
+        btnComenzar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnComenzar.addActionListener(this::btnComenzarActionPerformed);
+
+        lblDescripcion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblDescripcion.setForeground(new java.awt.Color(255, 255, 255));
+        lblDescripcion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblDescripcion.setText("Explora y descubre todos los espacios de nuestro campus.");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -53,18 +125,28 @@ public class HelouScreen extends javax.swing.JFrame {
                 .addComponent(lblWelcomen, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(132, 132, 132)
+                .addGap(157, 157, 157)
                 .addComponent(btnComenzar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(lblDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(93, 93, 93)
+                .addGap(58, 58, 58)
                 .addComponent(lblWelcomen, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(53, 53, 53)
                 .addComponent(btnComenzar)
-                .addContainerGap(97, Short.MAX_VALUE))
+                .addContainerGap(94, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(140, Short.MAX_VALUE)
+                    .addComponent(lblDescripcion)
+                    .addContainerGap(140, Short.MAX_VALUE)))
         );
 
         pack();
@@ -72,11 +154,14 @@ public class HelouScreen extends javax.swing.JFrame {
 
     private void btnComenzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComenzarActionPerformed
         Maps mp = new Maps();
-        Menu mn = new Menu();
-        mn.setAlwaysOnTop(true);
-        mp.setVisible(true);
+       Menu mn = new Menu(mp);
+
+        mp.setLocationRelativeTo(null);
         mn.setLocation(mp.getX() + mp.getWidth(), mp.getY());
+
+        mp.setVisible(true);
         mn.setVisible(true);
+
         this.dispose();
     }//GEN-LAST:event_btnComenzarActionPerformed
 
@@ -107,6 +192,8 @@ public class HelouScreen extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnComenzar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblDescripcion;
     private javax.swing.JLabel lblWelcomen;
     // End of variables declaration//GEN-END:variables
 }

@@ -16,9 +16,10 @@ public class Library {
     public static ArrayList<Linea> lines = new ArrayList<>();
 
     public static void fill() {
-        setLines();
-        setNearThingies();
-    }
+    lines.clear();
+    setLines();
+    setNearThingies();
+}
 
     public static void setLines() {
         lines.add(new Linea(Place.fondita, Place.vigMain, 58)); //son metros
@@ -66,6 +67,7 @@ public class Library {
         lines.add(new Linea(Place.e, Place.vinc, 80)); //Ventanaaaaaaaaaaaa por la 
         lines.add(new Linea(Place.a, Place.vigPark, 60));
         lines.add(new Linea(Place.a, Place.audMain, 108));
+        lines.add(new Linea(Place.cope, Place.basket, 68));
     }
 
     public static void setNearThingies() {

@@ -8,7 +8,6 @@ public class Main {
         hs.setVisible(true);
         System.out.println(Place.fondita.nearPlaces);
         System.out.println(Place.fondita.lines);
-        Grafo bee = new Grafo();
-        System.out.println(bee.mapeameLaExistencia(Place.bib, Place.park));
+        System.out.println(Grafo.mapeameLaExistencia(Place.bib, Place.park));
     }
 }
